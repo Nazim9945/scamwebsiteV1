@@ -9,12 +9,15 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
+import { VscEye } from "react-icons/vsc";
+import { VscEyeClosed } from "react-icons/vsc";
 
 function Page() {
   const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const[EyeValue,setEyeValue]=useState(false);
 
   useEffect(() => {
     if (email.length > 0 && password.length > 0) {
@@ -91,23 +94,32 @@ function Page() {
                         {" "}
                         Password{" "}
                       </label>
+                    </div>
+                    <div className="mt-2">
+                      <div className="flex items-center rounded-md border border-gray-300  focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 ">
+                        <input
+                          required
+                          className="flex h-10 w-full  bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 
+                         focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                          type={EyeValue ? "text" : "password"}
+                          placeholder="Password"
+                          onChange={(e) => setPassword(e.target.value)}
+                        ></input>
+                        <div
+                          className="mr-2"
+                          onClick={() => setEyeValue(!EyeValue)}
+                        >
+                          {EyeValue ? <VscEye /> : <VscEyeClosed />}
+                        </div>
+                      </div>
                       <Link
                         href="/forgetPassword"
                         title=""
-                        className="text-sm font-semibold text-black hover:underline"
+                        className="text-sm font-semibold text-black hover:underline block text-right"
                       >
                         {" "}
                         Forgot password?{" "}
                       </Link>
-                    </div>
-                    <div className="mt-2">
-                      <input
-                        required
-                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                      ></input>
                     </div>
                   </div>
                   <div>
@@ -122,13 +134,12 @@ function Page() {
                   </div>
                 </div>
               </form>
-              
             </div>
           </div>
           <div className="h-full w-full">
             <Image
-            height={1200}
-            width={1200}
+              height={1200}
+              width={1200}
               className="mx-auto h-full w-full rounded-md object-cover"
               src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
               alt=""
